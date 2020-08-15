@@ -2,8 +2,7 @@ var BookInstance = require('../models/bookinstance')
 var Book = require('../models/book')
 var async = require('async')
 
-const { body,validationResult } = require('express-validator/check');
-const { sanitizeBody } = require('express-validator/filter');
+const { body,validationResult } = require('express-validator');
 
 // Display list of all BookInstances.
 exports.bookinstance_list = function(req, res, next) {
@@ -57,10 +56,10 @@ exports.bookinstance_create_post = [
     body('due_back', 'Invalid date').optional({ checkFalsy: true }).isISO8601(),
     
     // Sanitize fields.
-    sanitizeBody('book').escape(),
-    sanitizeBody('imprint').escape(),
-    sanitizeBody('status').escape(),
-    sanitizeBody('due_back').toDate(),
+    body('book').escape(),
+    body('imprint').escape(),
+    body('status').escape(),
+    body('due_back').toDate(),
     
     // Process request after validation and sanitization.
     (req, res, next) => {
@@ -161,10 +160,10 @@ exports.bookinstance_update_post = [
     body('due_back', 'Invalid date').optional({ checkFalsy: true }).isISO8601(),
     
     // Sanitize fields.
-    sanitizeBody('book').escape(),
-    sanitizeBody('imprint').escape(),
-    sanitizeBody('status').escape(),
-    sanitizeBody('due_back').toDate(),
+    body('book').escape(),
+    body('imprint').escape(),
+    body('status').escape(),
+    body('due_back').toDate(),
     
     // Process request after validation and sanitization.
     (req, res, next) => {
